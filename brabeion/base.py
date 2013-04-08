@@ -10,14 +10,16 @@ class BadgeAwarded(object):
 
 
 class BadgeDetail(object):
-    def __init__(self, name=None, description=None):
+    def __init__(self, name=None, description=None, image=None):
         self.name = name
         self.description = description
+        self.image = image
 
 
 class Badge(object):
     async = False
-    
+    multiple = False
+
     def __init__(self):
         assert not (self.multiple and len(self.levels) > 1)
         for i, level in enumerate(self.levels):
