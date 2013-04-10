@@ -1,6 +1,7 @@
+from django.contrib.staticfiles.storage import staticfiles_storage
+
 from brabeion.models import BadgeAward
 from brabeion.signals import badge_awarded
-
 
 
 class BadgeAwarded(object):
@@ -9,11 +10,22 @@ class BadgeAwarded(object):
         self.user = user
 
 
+class Image(object):
+    def __init__(self, name):
+        self.name = name
+
+    def __unicode__(self):
+        return self.name
+
+    @property
+    def url(self):
+        return staticfiles_storage.url('i/badges/' + self.name)
+
 class BadgeDetail(object):
     def __init__(self, name=None, description=None, image=None):
         self.name = name
         self.description = description
-        self.image = image
+        self.image = Image(image)
 
 
 class Badge(object):
